@@ -1,0 +1,474 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachines_adminPassword": {
+      "defaultValue": null,
+      "type": "securestring"
+    },
+    "availabilitySets_name": {
+      "defaultValue": "JOK-PaaS-2Tier-VC-AVS",
+      "type": "string"
+    },
+    "virtualMachines_VS2015_name": {
+      "defaultValue": "VS2015",
+      "type": "string"
+    },
+    "components_jok_paas_2tier_vc_wa_name": {
+      "defaultValue": "jok-paas-2tier-vc-wa",
+      "type": "string"
+    },
+    "networkInterfaces_vs2015538_name": {
+      "defaultValue": "vs2015538",
+      "type": "string"
+    },
+    "networkSecurityGroups_VS2015_NSG_name": {
+      "defaultValue": "VS2015-NSG",
+      "type": "string"
+    },
+    "publicIPAddresses_VS2015_IP_name": {
+      "defaultValue": "VS2015-IP",
+      "type": "string"
+    },
+    "virtualNetworks_JOK_PaaS_2Tier_VC_VNET_name": {
+      "defaultValue": "JOK-PaaS-2Tier-VC-VNET",
+      "type": "string"
+    },
+    "servers_jokpaas2tiervcdbs_name": {
+      "defaultValue": "jokpaas2tiervcdbs",
+      "type": "string"
+    },
+    "storageAccounts_jokpaas2tiervcsa_name": {
+      "defaultValue": "jokpaas2tiervcsa",
+      "type": "string"
+    },
+    "serverfarms_JOK_PaaS_2Tier_VC_ASP_name": {
+      "defaultValue": "JOK-PaaS-2Tier-VC-ASP",
+      "type": "string"
+    },
+    "sites_JOK_PaaS_2Tier_VC_WA_name": {
+      "defaultValue": "JOK-PaaS-2Tier-VC-WA",
+      "type": "string"
+    },
+    "databases_JOK_PaaS=2Tier_VC_DB_name": {
+      "defaultValue": "jokpaas2tiervcdbs/JOK-PaaS=2Tier-VC-DB",
+      "type": "string"
+    },
+    "databases_master_name": {
+      "defaultValue": "jokpaas2tiervcdbs/master",
+      "type": "string"
+    },
+    "firewallRules_AllowAllWindowsAzureIps_name": {
+      "defaultValue": "jokpaas2tiervcdbs/AllowAllWindowsAzureIps",
+      "type": "string"
+    },
+    "sqlAdminPassword": {
+      "defaultValue": null,
+      "type": "securestring"
+    },
+    "webAppHostName": {
+      "defaultValue": null,
+      "type": "string"
+    },
+    "scmWebAppHostName": {
+      "defaultValue": null,
+      "type": "string"
+    },
+    "repoUrl": {
+      "defaultValue": "https://github.com/bulletproofnetworks/azure-charliebravo.git",
+      "type": "string"
+    },
+    "branch": {
+      "defaultValue": null,
+      "type": "string"
+    },
+    "slotName": {
+      "defaultValue": null,
+      "type": "string"
+    },
+    "modulesUrl": {
+      "type": "string",
+      "defaultValue": "https://jokiaasjokdsc.blob.core.windows.net/windows-powershell-dsc/win-iis-start-default.ps1.zip",
+      "metadata": {
+        "description": "URL for the DSC configuration module. NOTE: Can be a Github url(raw) to the zip file"
+      }
+    },
+    "configurationFunction": {
+      "type": "string",
+      "defaultValue": "win-iis-start-default.ps1\\Sample_xWebsite_StartDefault",
+      "metadata": {
+        "description": "DSC configuration function to call"
+      }
+    }
+  },
+  "variables": {
+    "slotNameOld": "Staging",
+    "vmExtensionName": "dscExtension"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('availabilitySets_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "australiaeast",
+      "properties": {
+        "platformUpdateDomainCount": 5,
+        "platformFaultDomainCount": 3
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_VS2015_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "australiaeast",
+      "properties": {
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_name'))]"
+        },
+        "hardwareProfile": {
+          "vmSize": "Standard_A2"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftVisualStudio",
+            "offer": "VisualStudio",
+            "sku": "VS-2015-Comm-VSU3-AzureSDK-291-WS2012R2",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_VS2015_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_jokpaas2tiervcsa_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_VS2015_name'),'2016619133646.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": [ ]
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_VS2015_name')]",
+          "adminUsername": "james",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          },
+          "secrets": [ ],
+          "adminPassword": "[parameters('virtualMachines_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_vs2015538_name'))]"
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_jokpaas2tiervcsa_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_vs2015538_name'))]"
+      ]
+    },
+
+    {
+      "apiVersion": "2014-04-01",
+      "dependsOn": [ ],
+      "kind": "web",
+      "location": "Central US",
+      "name": "[parameters('components_jok_paas_2tier_vc_wa_name')]",
+      "properties": {
+        "ApplicationId": "[parameters('components_jok_paas_2tier_vc_wa_name')]"
+      },
+      "type": "Microsoft.Insights/components"
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_vs2015538_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "australiaeast",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "10.2.0.4",
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VS2015_IP_name'))]"
+              },
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_JOK_PaaS_2Tier_VC_VNET_name')), '/subnets/default')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": [ ]
+        },
+        "enableIPForwarding": false,
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_VS2015_NSG_name'))]"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_VS2015_IP_name'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_JOK_PaaS_2Tier_VC_VNET_name'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_VS2015_NSG_name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroups_VS2015_NSG_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "australiaeast",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "default-allow-rdp",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 1000,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('publicIPAddresses_VS2015_IP_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "australiaeast",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "idleTimeoutInMinutes": 4
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('virtualNetworks_JOK_PaaS_2Tier_VC_VNET_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "australiaeast",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.2.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "default",
+            "properties": {
+              "addressPrefix": "10.2.0.0/24"
+            }
+          }
+        ]
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Sql/servers",
+      "kind": "v12.0",
+      "name": "[parameters('servers_jokpaas2tiervcdbs_name')]",
+      "apiVersion": "2014-04-01-preview",
+      "location": "Australia East",
+      "properties": {
+        "administratorLogin": "sqladmin",
+        "administratorLoginPassword": "[parameters('sqlAdminPassword')]",
+        "version": "12.0"
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageAccounts_jokpaas2tiervcsa_name')]",
+      "apiVersion": "2016-01-01",
+      "location": "australiaeast",
+      "tags": { },
+      "properties": { },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "S1",
+        "tier": "Standard",
+        "size": "S1",
+        "family": "S",
+        "capacity": 1
+      },
+      "name": "[parameters('serverfarms_JOK_PaaS_2Tier_VC_ASP_name')]",
+      "apiVersion": "2015-08-01",
+      "location": "Australia East",
+      "properties": {
+        "name": "[parameters('serverfarms_JOK_PaaS_2Tier_VC_ASP_name')]",
+        "numberOfWorkers": 1
+      },
+      "dependsOn": [ ]
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_JOK_PaaS_2Tier_VC_ASP_name'))]"
+      ],
+      "location": "Australia East",
+      "name": "[parameters('sites_JOK_PaaS_2Tier_VC_WA_name')]",
+      "properties": {
+        "name": "[parameters('sites_JOK_PaaS_2Tier_VC_WA_name')]",
+        "hostNames": [
+          "[parameters('webAppHostName')]"
+        ],
+        "enabledHostNames": [
+          "[parameters('webAppHostName')]",
+          "[parameters('scmWebAppHostName')]"
+        ],
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('sites_JOK_PaaS_2Tier_VC_WA_name'),parameters('webAppHostName'))]",
+            "sslState": 0,
+            "thumbprint": null,
+            "ipBasedSslState": 0
+          },
+          {
+            "name": "[concat(parameters('sites_JOK_PaaS_2Tier_VC_WA_name'),parameters('scmWebAppHostName'))]",
+            "sslState": 0,
+            "thumbprint": null,
+            "ipBasedSslState": 0
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_JOK_PaaS_2Tier_VC_ASP_name'))]"
+      },
+      "resources": [
+        {
+          "name": "appsettings",
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites',parameters('sites_JOK_PaaS_2Tier_VC_WA_name'))]"
+          ],
+          "properties": { }
+        },
+        {
+          "apiVersion": "2015-04-01",
+          "name": "slotconfignames",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('sites_JOK_PaaS_2Tier_VC_WA_name'))]"
+          ],
+          "properties": {
+            "appSettingNames": [
+              "clientUrl",
+              "PROJECT"
+            ]
+          }
+        },
+        {
+          "name": "[parameters('slotName')]",
+          "apiVersion": "2015-08-01",
+          "type": "slots",
+          "location": "Australia East",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites',parameters('sites_JOK_PaaS_2Tier_VC_WA_name'))]"
+          ],
+          "properties": { },
+          "resources": [
+            {
+              "apiVersion": "2015-04-01",
+              "name": "appsettings",
+              "type": "config",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites/Slots', parameters('sites_JOK_PaaS_2Tier_VC_WA_name'), parameters('slotName'))]"
+              ],
+              "properties": { }
+            },
+            {
+              "apiVersion": "2015-08-01",
+              "name": "web",
+              "type": "sourcecontrols",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites/Slots',parameters('sites_JOK_PaaS_2Tier_VC_WA_name'),parameters('slotName'))]",
+                "[resourceId('Microsoft.Web/Sites/Slots/config',parameters('sites_JOK_PaaS_2Tier_VC_WA_name'),parameters('slotName'),'appsettings')]"
+              ],
+              "properties": {
+                "RepoUrl": "[parameters('repoUrl')]",
+                "branch": "[parameters('branch')]",
+                "IsManualIntegration": false
+              }
+            }
+          ]
+        }
+      ],
+      "tags": { },
+      "type": "Microsoft.Web/sites"
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases",
+      "kind": "v12.0,user",
+      "name": "[parameters('databases_JOK_PaaS=2Tier_VC_DB_name')]",
+      "apiVersion": "2014-04-01-preview",
+      "location": "Australia East",
+      "properties": {
+        "edition": "Standard",
+        "collation": "SQL_Latin1_General_CP1_CI_AS",
+        "maxSizeBytes": "268435456000",
+        "defaultSecondaryLocation": "Australia Southeast",
+        "earliestRestoreDate": "2016-07-19T03:31:27.833Z",
+        "elasticPoolName": null,
+        "containmentState": 2
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_jokpaas2tiervcdbs_name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "kind": "v12.0",
+      "name": "[parameters('firewallRules_AllowAllWindowsAzureIps_name')]",
+      "apiVersion": "2014-04-01-preview",
+      "location": "Australia East",
+      "properties": {
+        "startIpAddress": "0.0.0.0",
+        "endIpAddress": "0.0.0.0"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_jokpaas2tiervcdbs_name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('virtualMachines_VS2015_name'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachines_VS2015_name'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "ModulesUrl": "[parameters('modulesUrl')]",
+          "ConfigurationFunction": "[parameters('configurationFunction')]",
+          "Properties": {
+            "MachineName": "[parameters('virtualMachines_VS2015_name')]"
+          }
+        },
+        "protectedSettings": null
+      }
+      }
+    ]
+ }

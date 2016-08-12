@@ -1,0 +1,33 @@
+﻿{
+  "apiVersion": "2015-04-01",
+  "name": "slotconfignames",
+  "type": "config",
+  "dependsOn": [
+    "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+  ],
+  "properties": {
+    "appSettingNames": [ "apiPath", "PROJECT" ]
+  }
+},
+        {
+          "apiVersion": "2015-04-01",
+          "name": "Staging",
+          "type": "slots",
+          "location": "[parameters('siteLocation')]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+          ],
+          "properties": {
+          },
+          "resources": [
+            {
+              "apiVersion": "2015-04-01",
+              "name": "appsettings",
+              "type": "config",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites/slots', parameters('siteName'), 'Staging')]",
+              ],
+              "properties": {
+                "apiPath": "[concat('http://', reference(resourceId('Microsoft.Web/Sites/Slots', variables('apiSiteName'), 'Staging')).hostNames[0], '/api')]",
+                "PROJECT": "src\\MultiChannelToDo.Web\\app"
+              }
