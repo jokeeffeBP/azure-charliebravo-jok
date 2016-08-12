@@ -54,16 +54,16 @@
       "value": "jok-paas-2tier-vc2-wa.scm.azurewebsites.net"
     },
     "repoUrl": {
-      "value": "https://github.com/bulletproofnetworks/azure-charliebravo.git"
+      "value": "https://github.com/jokeeffeBP/azure-charliebravo-jok.git"
     },
     "branch": {
       "value": "master"
     },
     "modulesUrl": {
-      "value": "https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip"
+      "value": "https://jokiaasjokdsc.blob.core.windows.net/windows-powershell-dsc/win-iis-start-default.ps1.zip"
     },
     "configurationFunction": {
-      "value": "ContosoWebsite.ps1\\ContosoWebsite"
+      "value": "win-iis-start-default.ps1\\Sample_xWebsite_StartDefault"
     },
     "slotName": { "value": "Staging" }
   }
