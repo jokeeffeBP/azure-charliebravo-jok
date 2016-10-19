@@ -2,27 +2,35 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
   "parameters": {
-    "Router_AS_SIN_Name": {
+    "Region_PRI": {
+      "type": "string",
+      "defaultValue": "southeastasia"
+    },
+    "Region_SEC": {
+      "type": "string",
+      "defaultValue": "japanwest"
+    },
+    "Router_AS_PRI_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Router_AS_JPW_Name": {
+    "Router_AS_SEC_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Config_AS_SIN_Name": {
+    "Config_AS_PRI_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Config_AS_JPW_Name": {
+    "Config_AS_SEC_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_A_AS_SIN_Name": {
+    "Shard_A_AS_PRI_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_A_AS_SIN_SKU": {
+    "Shard_A_AS_PRI_SKU": {
       "type": "string",
       "allowedValues": [
         "Free",
@@ -32,7 +40,7 @@
       ],
       "defaultValue": "Free"
     },
-    "Shard_A_AS_SIN_WorkerSize": {
+    "Shard_A_AS_PRI_WorkerSize": {
       "type": "string",
       "allowedValues": [
         "0",
@@ -41,11 +49,11 @@
       ],
       "defaultValue": "0"
     },
-    "Shard_A_AS_JPW_Name": {
+    "Shard_A_AS_SEC_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_A_AS_JPW_SKU": {
+    "Shard_A_AS_SEC_SKU": {
       "type": "string",
       "allowedValues": [
         "Free",
@@ -55,7 +63,7 @@
       ],
       "defaultValue": "Free"
     },
-    "Shard_A_AS_JPW_WorkerSize": {
+    "Shard_A_AS_SEC_WorkerSize": {
       "type": "string",
       "allowedValues": [
         "0",
@@ -64,23 +72,23 @@
       ],
       "defaultValue": "0"
     },
-    "Shard_B_AS_SIN_Name": {
+    "Shard_B_AS_PRI_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_B_AS_JPW_Name": {
+    "Shard_B_AS_SEC_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_C_AS_SIN_Name": {
+    "Shard_C_AS_PRI_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Shard_C_AS_JPW_Name": {
+    "Shard_C_AS_SEC_Name": {
       "type": "string",
       "minLength": 1
     },
-    "Config_SA_SIN_Type": {
+    "Config_SA_PRI_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -91,7 +99,7 @@
         "Premium_LRS"
       ]
     },
-    "Config_SA_JPW_Type": {
+    "Config_SA_SEC_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -102,7 +110,7 @@
         "Premium_LRS"
       ]
     },
-    "Router_SA_SIN_Type": {
+    "Router_SA_PRI_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -113,7 +121,7 @@
         "Premium_LRS"
       ]
     },
-    "Router_SA_JPW_Type": {
+    "Router_SA_SEC_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -124,7 +132,7 @@
         "Premium_LRS"
       ]
     },
-    "Shard_SA_SIN_Type": {
+    "Shard_SA_PRI_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -135,7 +143,7 @@
         "Premium_LRS"
       ]
     },
-    "Shard_SA_JPW_Type": {
+    "Shard_SA_SEC_Type": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -445,22 +453,22 @@
     }
   },
   "variables": {
-    "Config_SIN_Name": "[concat('ConfigSIN', uniqueString(resourceGroup().id))]",
-    "Config_JPW_Name": "[concat('ConfigJPW', uniqueString(resourceGroup().id))]",
-    "Router_SIN_Name": "[concat('RouterSIN', uniqueString(resourceGroup().id))]",
-    "Router_JPW_Name": "[concat('RouterJPW', uniqueString(resourceGroup().id))]",
-    "Shard_SIN_Name": "[concat('ShardSIN', uniqueString(resourceGroup().id))]",
-    "Shard_JPW_Name": "[concat('ShardJPW', uniqueString(resourceGroup().id))]",
-    "VNET_SIN_Prefix": "10.0.0.0/16",
-    "VNET_SIN_Subnet1Name": "Subnet-1",
-    "VNET_SIN_Subnet1Prefix": "10.0.0.0/24",
-    "VNET_SIN_Subnet2Name": "Subnet-2",
-    "VNET_SIN_Subnet2Prefix": "10.0.1.0/24",
-    "VNET_JPW_Prefix": "10.1.0.0/16",
-    "VNET_JPW_Subnet1Name": "Subnet-1",
-    "VNET_JPW_Subnet1Prefix": "10.1.0.0/24",
-    "VNET_JPW_Subnet2Name": "Subnet-2",
-    "VNET_JPW_Subnet2Prefix": "10.1.1.0/24",
+    "Config_PRI_Name": "[concat('ConfigPRI', uniqueString(resourceGroup().id))]",
+    "Config_SEC_Name": "[concat('ConfigSEC', uniqueString(resourceGroup().id))]",
+    "Router_PRI_Name": "[concat('RouterPRI', uniqueString(resourceGroup().id))]",
+    "Router_SEC_Name": "[concat('RouterSEC', uniqueString(resourceGroup().id))]",
+    "Shard_PRI_Name": "[concat('ShardPRI', uniqueString(resourceGroup().id))]",
+    "Shard_SEC_Name": "[concat('ShardSEC', uniqueString(resourceGroup().id))]",
+    "VNET_PRI_Prefix": "10.0.0.0/16",
+    "VNET_PRI_Subnet1Name": "Subnet-1",
+    "VNET_PRI_Subnet1Prefix": "10.0.0.0/24",
+    "VNET_PRI_Subnet2Name": "Subnet-2",
+    "VNET_PRI_Subnet2Prefix": "10.0.1.0/24",
+    "VNET_SEC_Prefix": "10.1.0.0/16",
+    "VNET_SEC_Subnet1Name": "Subnet-1",
+    "VNET_SEC_Subnet1Prefix": "10.1.0.0/24",
+    "VNET_SEC_Subnet2Name": "Subnet-2",
+    "VNET_SEC_Subnet2Prefix": "10.1.1.0/24",
 
     // Universal VM variables
     "Config_ImagePublisher": "Canonical",
@@ -471,104 +479,104 @@
     "Shard_ImageOffer": "UbuntuServer",
 
     "Config_1_OSDiskName": "Config_1_OSDisk",
-    "Config_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Config_1_SubnetRef": "[concat(variables('Config_1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Config_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Config_1_SubnetRef": "[concat(variables('Config_1_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Config_1_StorageAccountContainerName": "vhds",
     "Config_1_NicName": "[concat(parameters('Config_1_Name'), 'NetworkInterface')]",
 
     "Config_2_OSDiskName": "Config_2_OSDisk",
-    "Config_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Config_2_SubnetRef": "[concat(variables('Config_2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Config_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Config_2_SubnetRef": "[concat(variables('Config_2_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Config_2_StorageAccountContainerName": "vhds",
     "Config_2_NicName": "[concat(parameters('Config_2_Name'), 'NetworkInterface')]",
 
     "Config_3_OSDiskName": "Config_3_OSDisk",
-    "Config_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
-    "Config_3_SubnetRef": "[concat(variables('Config_3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Config_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]",
+    "Config_3_SubnetRef": "[concat(variables('Config_3_VnetID'), '/subnets/', variables('VNET_SEC_Subnet1Name'))]",
     "Config_3_StorageAccountContainerName": "vhds",
     "Config_3_NicName": "[concat(parameters('Config_3_Name'), 'NetworkInterface')]",
 
     "Router_1_OSDiskName": "Router_1_OSDisk",
-    "Router_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Router_1_SubnetRef": "[concat(variables('Router_1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Router_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Router_1_SubnetRef": "[concat(variables('Router_1_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Router_1_StorageAccountContainerName": "vhds",
     "Router_1_NicName": "[concat(parameters('Router_1_Name'), 'NetworkInterface')]",
 
     "Router_2_OSDiskName": "Router_2_OSDisk",
-    "Router_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Router_2_SubnetRef": "[concat(variables('Router_2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Router_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Router_2_SubnetRef": "[concat(variables('Router_2_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Router_2_StorageAccountContainerName": "vhds",
     "Router_2_NicName": "[concat(parameters('Router_2_Name'), 'NetworkInterface')]",
 
     "Router_3_OSDiskName": "Router_3_OSDisk",
-    "Router_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
-    "Router_3_SubnetRef": "[concat(variables('Router_3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Router_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]",
+    "Router_3_SubnetRef": "[concat(variables('Router_3_VnetID'), '/subnets/', variables('VNET_SEC_Subnet1Name'))]",
     "Router_3_StorageAccountContainerName": "vhds",
     "Router_3_NicName": "[concat(parameters('Router_3_Name'), 'NetworkInterface')]",
 
     "Shard_A1_OSDiskName": "Shard_A1_OSDisk",
-    "Shard_A1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_A1_SubnetRef": "[concat(variables('Shard_A1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_A1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_A1_SubnetRef": "[concat(variables('Shard_A1_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_A1_StorageAccountContainerName": "vhds",
     "Shard_A1_NicName": "[concat(parameters('Shard_A1_Name'), 'NetworkInterface')]",
 
     "Shard_A2_OSDiskName": "Shard_A2_OSDisk",
-    "Shard_A2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_A2_SubnetRef": "[concat(variables('Shard_A2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_A2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_A2_SubnetRef": "[concat(variables('Shard_A2_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_A2_StorageAccountContainerName": "vhds",
     "Shard_A2_NicName": "[concat(parameters('Shard_A2_Name'), 'NetworkInterface')]",
 
     "Shard_A3_OSDiskName": "Shard_A3_OSDisk",
-    "Shard_A3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
-    "Shard_A3_SubnetRef": "[concat(variables('Shard_A3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_A3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]",
+    "Shard_A3_SubnetRef": "[concat(variables('Shard_A3_VnetID'), '/subnets/', variables('VNET_SEC_Subnet1Name'))]",
     "Shard_A3_StorageAccountContainerName": "vhds",
     "Shard_A3_NicName": "[concat(parameters('Shard_A3_Name'), 'NetworkInterface')]",
 
     "Shard_B1_OSDiskName": "Shard_B1_OSDisk",
-    "Shard_B1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_B1_SubnetRef": "[concat(variables('Shard_B1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_B1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_B1_SubnetRef": "[concat(variables('Shard_B1_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_B1_StorageAccountContainerName": "vhds",
     "Shard_B1_NicName": "[concat(parameters('Shard_B1_Name'), 'NetworkInterface')]",
 
     "Shard_B2_OSDiskName": "Shard_B2_OSDisk",
-    "Shard_B2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_B2_SubnetRef": "[concat(variables('Shard_B2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_B2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_B2_SubnetRef": "[concat(variables('Shard_B2_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_B2_StorageAccountContainerName": "vhds",
     "Shard_B2_NicName": "[concat(parameters('Shard_B2_Name'), 'NetworkInterface')]",
 
     "Shard_B3_OSDiskName": "Shard_B3_OSDisk",
-    "Shard_B3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
-    "Shard_B3_SubnetRef": "[concat(variables('Shard_B3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_B3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]",
+    "Shard_B3_SubnetRef": "[concat(variables('Shard_B3_VnetID'), '/subnets/', variables('VNET_SEC_Subnet1Name'))]",
     "Shard_B3_StorageAccountContainerName": "vhds",
     "Shard_B3_NicName": "[concat(parameters('Shard_B3_Name'), 'NetworkInterface')]",
 
     "Shard_C1_OSDiskName": "Shard_C1_OSDisk",
-    "Shard_C1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_C1_SubnetRef": "[concat(variables('Shard_C1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_C1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_C1_SubnetRef": "[concat(variables('Shard_C1_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_C1_StorageAccountContainerName": "vhds",
     "Shard_C1_NicName": "[concat(parameters('Shard_C1_Name'), 'NetworkInterface')]",
 
     "Shard_C2_OSDiskName": "Shard_C2_OSDisk",
-    "Shard_C2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
-    "Shard_C2_SubnetRef": "[concat(variables('Shard_C2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_C2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]",
+    "Shard_C2_SubnetRef": "[concat(variables('Shard_C2_VnetID'), '/subnets/', variables('VNET_PRI_Subnet1Name'))]",
     "Shard_C2_StorageAccountContainerName": "vhds",
     "Shard_C2_NicName": "[concat(parameters('Shard_C2_Name'), 'NetworkInterface')]",
 
     "Shard_C3_OSDiskName": "Shard_C3_OSDisk",
-    "Shard_C3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
-    "Shard_C3_SubnetRef": "[concat(variables('Shard_C3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_C3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]",
+    "Shard_C3_SubnetRef": "[concat(variables('Shard_C3_VnetID'), '/subnets/', variables('VNET_SEC_Subnet1Name'))]",
     "Shard_C3_StorageAccountContainerName": "vhds",
     "Shard_C3_NicName": "[concat(parameters('Shard_C3_Name'), 'NetworkInterface')]"
   },
   "resources": [
     {
-      "name": "[parameters('Router_AS_SIN_Name')]",
+      "name": "[parameters('Router_AS_PRI_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Router_AS_SIN"
+        "displayName": "Router_AS_PRI"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -576,13 +584,13 @@
       }
     },
     {
-      "name": "[parameters('Router_AS_JPW_Name')]",
+      "name": "[parameters('Router_AS_SEC_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Router_AS_JPW"
+        "displayName": "Router_AS_SEC"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -590,13 +598,13 @@
       }
     },
     {
-      "name": "[parameters('Config_AS_SIN_Name')]",
+      "name": "[parameters('Config_AS_PRI_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Config_AS_SIN"
+        "displayName": "Config_AS_PRI"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -604,13 +612,13 @@
       }
     },
     {
-      "name": "[parameters('Config_AS_JPW_Name')]",
+      "name": "[parameters('Config_AS_SEC_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Config_AS_JPW"
+        "displayName": "Config_AS_SEC"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -618,13 +626,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_B_AS_SIN_Name')]",
+      "name": "[parameters('Shard_B_AS_PRI_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_B_AS_SIN"
+        "displayName": "Shard_B_AS_PRI"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -632,13 +640,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_B_AS_JPW_Name')]",
+      "name": "[parameters('Shard_B_AS_SEC_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_B_AS_JPW"
+        "displayName": "Shard_B_AS_SEC"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -646,13 +654,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_C_AS_SIN_Name')]",
+      "name": "[parameters('Shard_C_AS_PRI_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_C_AS_SIN"
+        "displayName": "Shard_C_AS_PRI"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -660,13 +668,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_C_AS_JPW_Name')]",
+      "name": "[parameters('Shard_C_AS_SEC_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_C_AS_JPW"
+        "displayName": "Shard_C_AS_SEC"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -674,13 +682,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_A_AS_SIN_Name')]",
+      "name": "[parameters('Shard_A_AS_PRI_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_A_AS_SIN"
+        "displayName": "Shard_A_AS_PRI"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -688,13 +696,13 @@
       }
     },
     {
-      "name": "[parameters('Shard_A_AS_JPW_Name')]",
+      "name": "[parameters('Shard_A_AS_SEC_Name')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "Shard_A_AS_JPW"
+        "displayName": "Shard_A_AS_SEC"
       },
       "properties": {
         "platformUpdateDomainCount": 1,
@@ -702,140 +710,140 @@
       }
     },
     {
-      "name": "[variables('Config_SIN_Name')]",
+      "name": "[variables('Config_PRI_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "ConfigSIN"
+        "displayName": "ConfigPRI"
       },
       "properties": {
-        "accountType": "[parameters('Config_SA_SIN_Type')]"
+        "accountType": "[parameters('Config_SA_PRI_Type')]"
       }
     },
     {
-      "name": "[variables('Config_JPW_Name')]",
+      "name": "[variables('Config_SEC_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "ConfigJPW"
+        "displayName": "ConfigSEC"
       },
       "properties": {
-        "accountType": "[parameters('Config_SA_JPW_Type')]"
+        "accountType": "[parameters('Config_SA_SEC_Type')]"
       }
     },
     {
-      "name": "[variables('Router_SIN_Name')]",
+      "name": "[variables('Router_PRI_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "RouterSIN"
+        "displayName": "RouterPRI"
       },
       "properties": {
-        "accountType": "[parameters('Router_SA_SIN_Type')]"
+        "accountType": "[parameters('Router_SA_PRI_Type')]"
       }
     },
     {
-      "name": "[variables('Router_JPW_Name')]",
+      "name": "[variables('Router_SEC_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "RouterJPW"
+        "displayName": "RouterSEC"
       },
       "properties": {
-        "accountType": "[parameters('Router_SA_JPW_Type')]"
+        "accountType": "[parameters('Router_SA_SEC_Type')]"
       }
     },
     {
-      "name": "[variables('Shard_SIN_Name')]",
+      "name": "[variables('Shard_PRI_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "ShardSIN"
+        "displayName": "ShardPRI"
       },
       "properties": {
-        "accountType": "[parameters('Shard_SA_SIN_Type')]"
+        "accountType": "[parameters('Shard_SA_PRI_Type')]"
       }
     },
     {
-      "name": "[variables('Shard_JPW_Name')]",
+      "name": "[variables('Shard_SEC_Name')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "ShardJPW"
+        "displayName": "ShardSEC"
       },
       "properties": {
-        "accountType": "[parameters('Shard_SA_JPW_Type')]"
+        "accountType": "[parameters('Shard_SA_SEC_Type')]"
       }
     },
     {
-      "name": "VNET_SIN",
+      "name": "VNET_PRI",
       "type": "Microsoft.Network/virtualNetworks",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "VNET_SIN"
+        "displayName": "VNET_PRI"
       },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('VNET_SIN_Prefix')]"
+            "[variables('VNET_PRI_Prefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('VNET_SIN_Subnet1Name')]",
+            "name": "[variables('VNET_PRI_Subnet1Name')]",
             "properties": {
-              "addressPrefix": "[variables('VNET_SIN_Subnet1Prefix')]"
+              "addressPrefix": "[variables('VNET_PRI_Subnet1Prefix')]"
             }
           },
           {
-            "name": "[variables('VNET_SIN_Subnet2Name')]",
+            "name": "[variables('VNET_PRI_Subnet2Name')]",
             "properties": {
-              "addressPrefix": "[variables('VNET_SIN_Subnet2Prefix')]"
+              "addressPrefix": "[variables('VNET_PRI_Subnet2Prefix')]"
             }
           }
         ]
       }
     },
     {
-      "name": "VNET_JPW",
+      "name": "VNET_SEC",
       "type": "Microsoft.Network/virtualNetworks",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [],
       "tags": {
-        "displayName": "VNET_JPW"
+        "displayName": "VNET_SEC"
       },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('VNET_JPW_Prefix')]"
+            "[variables('VNET_SEC_Prefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('VNET_JPW_Subnet1Name')]",
+            "name": "[variables('VNET_SEC_Subnet1Name')]",
             "properties": {
-              "addressPrefix": "[variables('VNET_JPW_Subnet1Prefix')]"
+              "addressPrefix": "[variables('VNET_SEC_Subnet1Prefix')]"
             }
           },
           {
-            "name": "[variables('VNET_JPW_Subnet2Name')]",
+            "name": "[variables('VNET_SEC_Subnet2Name')]",
             "properties": {
-              "addressPrefix": "[variables('VNET_JPW_Subnet2Prefix')]"
+              "addressPrefix": "[variables('VNET_SEC_Subnet2Prefix')]"
             }
           }
         ]
@@ -844,10 +852,10 @@
     {
       "name": "[variables('Config_1_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
       ],
       "tags": {
         "displayName": "Config_1_Nic"
@@ -869,10 +877,10 @@
     {
       "name": "[parameters('Config_1_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_PRI_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_1_NicName'))]"
       ],
       "tags": {
@@ -897,7 +905,7 @@
           "osDisk": {
             "name": "Config_1_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Config_1_StorageAccountContainerName'), '/', variables('Config_1_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Config_PRI_Name'), '.blob.core.windows.net/', variables('Config_1_StorageAccountContainerName'), '/', variables('Config_1_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -915,10 +923,10 @@
     {
       "name": "[variables('Config_2_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
       ],
       "tags": {
         "displayName": "Config_2_Nic"
@@ -940,10 +948,10 @@
     {
       "name": "[parameters('Config_2_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_PRI_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_2_NicName'))]"
       ],
       "tags": {
@@ -968,7 +976,7 @@
           "osDisk": {
             "name": "Config_2_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Config_2_StorageAccountContainerName'), '/', variables('Config_2_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Config_PRI_Name'), '.blob.core.windows.net/', variables('Config_2_StorageAccountContainerName'), '/', variables('Config_2_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -984,15 +992,15 @@
       }
     },
     {
-      "name": "[variables('Config_2_NicName')]",
+      "name": "[variables('Config_3_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]"
       ],
       "tags": {
-        "displayName": "Config_2_Nic"
+        "displayName": "Config_3_Nic"
       },
       "properties": {
         "ipConfigurations": [
@@ -1001,7 +1009,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[variables('Config_2_SubnetRef')]"
+                "id": "[variables('Config_3_SubnetRef')]"
               }
             }
           }
@@ -1011,10 +1019,10 @@
     {
       "name": "[parameters('Config_3_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_JPW_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SEC_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_3_NicName'))]"
       ],
       "tags": {
@@ -1039,7 +1047,7 @@
           "osDisk": {
             "name": "Config_3_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Config_JPW_Name'), '.blob.core.windows.net/', variables('Config_3_StorageAccountContainerName'), '/', variables('Config_3_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Config_SEC_Name'), '.blob.core.windows.net/', variables('Config_3_StorageAccountContainerName'), '/', variables('Config_3_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -1057,10 +1065,10 @@
     {
       "name": "[variables('Router_1_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
       ],
       "tags": {
         "displayName": "Router_1_Nic"
@@ -1082,10 +1090,10 @@
     {
       "name": "[parameters('Router_1_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_SIN_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_PRI_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_1_NicName'))]"
       ],
       "tags": {
@@ -1110,7 +1118,7 @@
           "osDisk": {
             "name": "Router_1_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Router_SIN_Name'), '.blob.core.windows.net/', variables('Router_1_StorageAccountContainerName'), '/', variables('Router_1_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Router_PRI_Name'), '.blob.core.windows.net/', variables('Router_1_StorageAccountContainerName'), '/', variables('Router_1_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -1128,10 +1136,10 @@
     {
       "name": "[variables('Router_2_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
       ],
       "tags": {
         "displayName": "Router_2_Nic"
@@ -1153,10 +1161,10 @@
     {
       "name": "[parameters('Router_2_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_PRI')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_PRI_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_2_NicName'))]"
       ],
       "tags": {
@@ -1181,7 +1189,7 @@
           "osDisk": {
             "name": "Router_2_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Router_2_StorageAccountContainerName'), '/', variables('Router_2_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Config_PRI_Name'), '.blob.core.windows.net/', variables('Router_2_StorageAccountContainerName'), '/', variables('Router_2_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -1199,10 +1207,10 @@
     {
       "name": "[variables('Router_3_NicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]"
       ],
       "tags": {
         "displayName": "Router_3_Nic"
@@ -1224,10 +1232,10 @@
     {
       "name": "[parameters('Router_3_Name')]",
       "type": "Microsoft.Compute/virtualMachines",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('Region_SEC')]",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_JPW_Name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_SEC_Name'))]",
         "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_3_NicName'))]"
       ],
       "tags": {
@@ -1252,7 +1260,7 @@
           "osDisk": {
             "name": "Router_3_OSDisk",
             "vhd": {
-              "uri": "[concat('https://', variables('Router_JPW_Name'), '.blob.core.windows.net/', variables('Router_3_StorageAccountContainerName'), '/', variables('Router_3_OSDiskName'), '.vhd')]"
+              "uri": "[concat('https://', variables('Router_SEC_Name'), '.blob.core.windows.net/', variables('Router_3_StorageAccountContainerName'), '/', variables('Router_3_OSDiskName'), '.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -1270,10 +1278,10 @@
       {
           "name": "[variables('Shard_A1_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_A1_Nic"
@@ -1295,10 +1303,10 @@
       {
           "name": "[parameters('Shard_A1_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A1_NicName'))]"
           ],
           "tags": {
@@ -1323,7 +1331,7 @@
                   "osDisk": {
                       "name": "Shard_A1_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_A1_StorageAccountContainerName'), '/', variables('Shard_A1_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_A1_StorageAccountContainerName'), '/', variables('Shard_A1_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1341,10 +1349,10 @@
       {
           "name": "[variables('Shard_A2_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_A2_Nic"
@@ -1366,10 +1374,10 @@
       {
           "name": "[parameters('Shard_A2_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A2_NicName'))]"
           ],
           "tags": {
@@ -1394,7 +1402,7 @@
                   "osDisk": {
                       "name": "Shard_A2_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_A2_StorageAccountContainerName'), '/', variables('Shard_A2_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_A2_StorageAccountContainerName'), '/', variables('Shard_A2_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1412,10 +1420,10 @@
       {
           "name": "[variables('Shard_A3_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]"
           ],
           "tags": {
               "displayName": "Shard_A3_Nic"
@@ -1437,10 +1445,10 @@
       {
           "name": "[parameters('Shard_A3_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SEC_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A3_NicName'))]"
           ],
           "tags": {
@@ -1465,7 +1473,7 @@
                   "osDisk": {
                       "name": "Shard_A3_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_A3_StorageAccountContainerName'), '/', variables('Shard_A3_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_SEC_Name'), '.blob.core.windows.net/', variables('Shard_A3_StorageAccountContainerName'), '/', variables('Shard_A3_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1483,10 +1491,10 @@
       {
           "name": "[variables('Shard_B1_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_B1_Nic"
@@ -1508,10 +1516,10 @@
       {
           "name": "[parameters('Shard_B1_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B1_NicName'))]"
           ],
           "tags": {
@@ -1536,7 +1544,7 @@
                   "osDisk": {
                       "name": "Shard_B1_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_B1_StorageAccountContainerName'), '/', variables('Shard_B1_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_B1_StorageAccountContainerName'), '/', variables('Shard_B1_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1554,10 +1562,10 @@
       {
           "name": "[variables('Shard_B2_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_B2_Nic"
@@ -1579,10 +1587,10 @@
       {
           "name": "[parameters('Shard_B2_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B2_NicName'))]"
           ],
           "tags": {
@@ -1607,7 +1615,7 @@
                   "osDisk": {
                       "name": "Shard_B2_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_B2_StorageAccountContainerName'), '/', variables('Shard_B2_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_B2_StorageAccountContainerName'), '/', variables('Shard_B2_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1625,10 +1633,10 @@
       {
           "name": "[variables('Shard_B3_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]"
           ],
           "tags": {
               "displayName": "Shard_B3_Nic"
@@ -1650,10 +1658,10 @@
       {
           "name": "[parameters('Shard_B3_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SEC_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B3_NicName'))]"
           ],
           "tags": {
@@ -1678,7 +1686,7 @@
                   "osDisk": {
                       "name": "Shard_B3_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_B3_StorageAccountContainerName'), '/', variables('Shard_B3_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_SEC_Name'), '.blob.core.windows.net/', variables('Shard_B3_StorageAccountContainerName'), '/', variables('Shard_B3_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1696,10 +1704,10 @@
       {
           "name": "[variables('Shard_C1_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_C1_Nic"
@@ -1721,10 +1729,10 @@
       {
           "name": "[parameters('Shard_C1_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C1_NicName'))]"
           ],
           "tags": {
@@ -1749,7 +1757,7 @@
                   "osDisk": {
                       "name": "Shard_C1_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_C1_StorageAccountContainerName'), '/', variables('Shard_C1_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_C1_StorageAccountContainerName'), '/', variables('Shard_C1_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1767,10 +1775,10 @@
       {
           "name": "[variables('Shard_C2_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_PRI')]"
           ],
           "tags": {
               "displayName": "Shard_C2_Nic"
@@ -1792,10 +1800,10 @@
       {
           "name": "[parameters('Shard_C2_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_PRI')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_PRI_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C2_NicName'))]"
           ],
           "tags": {
@@ -1820,7 +1828,7 @@
                   "osDisk": {
                       "name": "Shard_C2_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_C2_StorageAccountContainerName'), '/', variables('Shard_C2_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_PRI_Name'), '.blob.core.windows.net/', variables('Shard_C2_StorageAccountContainerName'), '/', variables('Shard_C2_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
@@ -1838,10 +1846,10 @@
       {
           "name": "[variables('Shard_C3_NicName')]",
           "type": "Microsoft.Network/networkInterfaces",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SEC')]"
           ],
           "tags": {
               "displayName": "Shard_C3_Nic"
@@ -1863,10 +1871,10 @@
       {
           "name": "[parameters('Shard_C3_Name')]",
           "type": "Microsoft.Compute/virtualMachines",
-          "location": "[resourceGroup().location]",
+          "location": "[parameters('Region_SEC')]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SEC_Name'))]",
               "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C3_NicName'))]"
           ],
           "tags": {
@@ -1891,7 +1899,7 @@
                   "osDisk": {
                       "name": "Shard_C3_OSDisk",
                       "vhd": {
-                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_C3_StorageAccountContainerName'), '/', variables('Shard_C3_OSDiskName'), '.vhd')]"
+                          "uri": "[concat('https://', variables('Shard_SEC_Name'), '.blob.core.windows.net/', variables('Shard_C3_StorageAccountContainerName'), '/', variables('Shard_C3_OSDiskName'), '.vhd')]"
                       },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"

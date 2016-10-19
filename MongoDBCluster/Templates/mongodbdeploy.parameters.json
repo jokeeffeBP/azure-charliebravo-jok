@@ -3,8 +3,8 @@
     "contentVersion": "1.0.0.0",
   "parameters": {
     // Regions
-    "Region_SIN": { "value": "southeastasia" },
-    "Region_JPW": { "value": "japanwest" },
+    "Region_PRI": { "value": "southeastasia" },
+    "Region_SEC": { "value": "japanwest" },
 
     // Admin user names
     "Config1AdminUserName": { "value": "james" },
@@ -24,16 +24,16 @@
     "ShardC3AdminUserName": { "value": "james" },
 
     // Availability Set Parameters
-    "Router_AS_SIN_Name": { "value": "Router_AS_SIN" },
-    "Router_AS_JPW_Name": { "value": "Router_AS_JPW" },
-    "Config_AS_SIN_Name": { "value": "Config_AS_SIN" },
-    "Config_AS_JPW_Name": { "value": "Config_AS_JPW" },
-    "Shard_A_AS_SIN_Name": { "value": "Shard_A_AS_SIN" },
-    "Shard_B_AS_SIN_Name": { "value": "Shard_B_AS_SIN" },
-    "Shard_C_AS_SIN_Name": { "value": "Shard_C_AS_SIN" },
-    "Shard_A_AS_JPW_Name": { "value": "Shard_A_AS_JPW" },
-    "Shard_B_AS_JPW_Name": { "value": "Shard_B_AS_JPW" },
-    "Shard_C_AS_JPW_Name": { "value": "Shard_C_AS_JPW" },
+    "Router_AS_PRI_Name": { "value": "Router_AS_PRI" },
+    "Router_AS_SEC_Name": { "value": "Router_AS_SEC" },
+    "Config_AS_PRI_Name": { "value": "Config_AS_PRI" },
+    "Config_AS_SEC_Name": { "value": "Config_AS_SEC" },
+    "Shard_A_AS_PRI_Name": { "value": "Shard_A_AS_PRI" },
+    "Shard_B_AS_PRI_Name": { "value": "Shard_B_AS_PRI" },
+    "Shard_C_AS_PRI_Name": { "value": "Shard_C_AS_PRI" },
+    "Shard_A_AS_SEC_Name": { "value": "Shard_A_AS_SEC" },
+    "Shard_B_AS_SEC_Name": { "value": "Shard_B_AS_SEC" },
+    "Shard_C_AS_SEC_Name": { "value": "Shard_C_AS_SEC" },
 
     // VM Names and Parameters
     "Config1Name": { "value": "Config1" },
