@@ -1,0 +1,1912 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Router_AS_SIN_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_AS_JPW_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_AS_SIN_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_AS_JPW_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A_AS_SIN_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A_AS_SIN_SKU": {
+      "type": "string",
+      "allowedValues": [
+        "Free",
+        "Shared",
+        "Basic",
+        "Standard"
+      ],
+      "defaultValue": "Free"
+    },
+    "Shard_A_AS_SIN_WorkerSize": {
+      "type": "string",
+      "allowedValues": [
+        "0",
+        "1",
+        "2"
+      ],
+      "defaultValue": "0"
+    },
+    "Shard_A_AS_JPW_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A_AS_JPW_SKU": {
+      "type": "string",
+      "allowedValues": [
+        "Free",
+        "Shared",
+        "Basic",
+        "Standard"
+      ],
+      "defaultValue": "Free"
+    },
+    "Shard_A_AS_JPW_WorkerSize": {
+      "type": "string",
+      "allowedValues": [
+        "0",
+        "1",
+        "2"
+      ],
+      "defaultValue": "0"
+    },
+    "Shard_B_AS_SIN_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B_AS_JPW_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C_AS_SIN_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C_AS_JPW_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_SA_SIN_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Config_SA_JPW_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Router_SA_SIN_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Router_SA_JPW_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Shard_SA_SIN_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Shard_SA_JPW_Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "Config_1_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_1_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_1_AdminPassword": {
+      "type": "securestring"
+    },
+    "Config_1_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Config_2_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_2_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_2_AdminPassword": {
+      "type": "securestring"
+    },
+    "Config_2_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Config_3_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_3_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Config_3_AdminPassword": {
+      "type": "securestring"
+    },
+    "Config_3_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Router_1_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_1_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_1_AdminPassword": {
+      "type": "securestring"
+    },
+    "Router_1_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Router_2_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_2_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_2_AdminPassword": {
+      "type": "securestring"
+    },
+    "Router_2_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Router_3_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_3_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Router_3_AdminPassword": {
+      "type": "securestring"
+    },
+    "Router_3_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_A1_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A1_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A1_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_A1_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_A2_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A2_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A2_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_A2_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_A3_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A3_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_A3_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_A3_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_B1_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B1_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B1_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_B1_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_B2_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B2_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B2_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_B2_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_B3_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B3_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_B3_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_B3_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_C1_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C1_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C1_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_C1_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_C2_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C2_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C2_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_C2_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Shard_C3_Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C3_AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Shard_C3_AdminPassword": {
+      "type": "securestring"
+    },
+    "Shard_C3_UbuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "Config_VM_Size": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v2"
+    },
+    "Router_VM_Size": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v2"
+    },
+    "Shard_VM_Size": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v2"
+    }
+  },
+  "variables": {
+    "Config_SIN_Name": "[concat('ConfigSIN', uniqueString(resourceGroup().id))]",
+    "Config_JPW_Name": "[concat('ConfigJPW', uniqueString(resourceGroup().id))]",
+    "Router_SIN_Name": "[concat('RouterSIN', uniqueString(resourceGroup().id))]",
+    "Router_JPW_Name": "[concat('RouterJPW', uniqueString(resourceGroup().id))]",
+    "Shard_SIN_Name": "[concat('ShardSIN', uniqueString(resourceGroup().id))]",
+    "Shard_JPW_Name": "[concat('ShardJPW', uniqueString(resourceGroup().id))]",
+    "VNET_SIN_Prefix": "10.0.0.0/16",
+    "VNET_SIN_Subnet1Name": "Subnet-1",
+    "VNET_SIN_Subnet1Prefix": "10.0.0.0/24",
+    "VNET_SIN_Subnet2Name": "Subnet-2",
+    "VNET_SIN_Subnet2Prefix": "10.0.1.0/24",
+    "VNET_JPW_Prefix": "10.1.0.0/16",
+    "VNET_JPW_Subnet1Name": "Subnet-1",
+    "VNET_JPW_Subnet1Prefix": "10.1.0.0/24",
+    "VNET_JPW_Subnet2Name": "Subnet-2",
+    "VNET_JPW_Subnet2Prefix": "10.1.1.0/24",
+
+    // Universal VM variables
+    "Config_ImagePublisher": "Canonical",
+    "Config_ImageOffer": "UbuntuServer",
+    "Router_ImagePublisher": "Canonical",
+    "Router_ImageOffer": "UbuntuServer",
+    "Shard_ImagePublisher": "Canonical",
+    "Shard_ImageOffer": "UbuntuServer",
+
+    "Config_1_OSDiskName": "Config_1_OSDisk",
+    "Config_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Config_1_SubnetRef": "[concat(variables('Config_1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Config_1_StorageAccountContainerName": "vhds",
+    "Config_1_NicName": "[concat(parameters('Config_1_Name'), 'NetworkInterface')]",
+
+    "Config_2_OSDiskName": "Config_2_OSDisk",
+    "Config_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Config_2_SubnetRef": "[concat(variables('Config_2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Config_2_StorageAccountContainerName": "vhds",
+    "Config_2_NicName": "[concat(parameters('Config_2_Name'), 'NetworkInterface')]",
+
+    "Config_3_OSDiskName": "Config_3_OSDisk",
+    "Config_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
+    "Config_3_SubnetRef": "[concat(variables('Config_3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Config_3_StorageAccountContainerName": "vhds",
+    "Config_3_NicName": "[concat(parameters('Config_3_Name'), 'NetworkInterface')]",
+
+    "Router_1_OSDiskName": "Router_1_OSDisk",
+    "Router_1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Router_1_SubnetRef": "[concat(variables('Router_1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Router_1_StorageAccountContainerName": "vhds",
+    "Router_1_NicName": "[concat(parameters('Router_1_Name'), 'NetworkInterface')]",
+
+    "Router_2_OSDiskName": "Router_2_OSDisk",
+    "Router_2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Router_2_SubnetRef": "[concat(variables('Router_2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Router_2_StorageAccountContainerName": "vhds",
+    "Router_2_NicName": "[concat(parameters('Router_2_Name'), 'NetworkInterface')]",
+
+    "Router_3_OSDiskName": "Router_3_OSDisk",
+    "Router_3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
+    "Router_3_SubnetRef": "[concat(variables('Router_3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Router_3_StorageAccountContainerName": "vhds",
+    "Router_3_NicName": "[concat(parameters('Router_3_Name'), 'NetworkInterface')]",
+
+    "Shard_A1_OSDiskName": "Shard_A1_OSDisk",
+    "Shard_A1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_A1_SubnetRef": "[concat(variables('Shard_A1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_A1_StorageAccountContainerName": "vhds",
+    "Shard_A1_NicName": "[concat(parameters('Shard_A1_Name'), 'NetworkInterface')]",
+
+    "Shard_A2_OSDiskName": "Shard_A2_OSDisk",
+    "Shard_A2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_A2_SubnetRef": "[concat(variables('Shard_A2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_A2_StorageAccountContainerName": "vhds",
+    "Shard_A2_NicName": "[concat(parameters('Shard_A2_Name'), 'NetworkInterface')]",
+
+    "Shard_A3_OSDiskName": "Shard_A3_OSDisk",
+    "Shard_A3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
+    "Shard_A3_SubnetRef": "[concat(variables('Shard_A3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_A3_StorageAccountContainerName": "vhds",
+    "Shard_A3_NicName": "[concat(parameters('Shard_A3_Name'), 'NetworkInterface')]",
+
+    "Shard_B1_OSDiskName": "Shard_B1_OSDisk",
+    "Shard_B1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_B1_SubnetRef": "[concat(variables('Shard_B1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_B1_StorageAccountContainerName": "vhds",
+    "Shard_B1_NicName": "[concat(parameters('Shard_B1_Name'), 'NetworkInterface')]",
+
+    "Shard_B2_OSDiskName": "Shard_B2_OSDisk",
+    "Shard_B2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_B2_SubnetRef": "[concat(variables('Shard_B2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_B2_StorageAccountContainerName": "vhds",
+    "Shard_B2_NicName": "[concat(parameters('Shard_B2_Name'), 'NetworkInterface')]",
+
+    "Shard_B3_OSDiskName": "Shard_B3_OSDisk",
+    "Shard_B3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
+    "Shard_B3_SubnetRef": "[concat(variables('Shard_B3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_B3_StorageAccountContainerName": "vhds",
+    "Shard_B3_NicName": "[concat(parameters('Shard_B3_Name'), 'NetworkInterface')]",
+
+    "Shard_C1_OSDiskName": "Shard_C1_OSDisk",
+    "Shard_C1_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_C1_SubnetRef": "[concat(variables('Shard_C1_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_C1_StorageAccountContainerName": "vhds",
+    "Shard_C1_NicName": "[concat(parameters('Shard_C1_Name'), 'NetworkInterface')]",
+
+    "Shard_C2_OSDiskName": "Shard_C2_OSDisk",
+    "Shard_C2_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]",
+    "Shard_C2_SubnetRef": "[concat(variables('Shard_C2_VnetID'), '/subnets/', variables('VNET_SIN_Subnet1Name'))]",
+    "Shard_C2_StorageAccountContainerName": "vhds",
+    "Shard_C2_NicName": "[concat(parameters('Shard_C2_Name'), 'NetworkInterface')]",
+
+    "Shard_C3_OSDiskName": "Shard_C3_OSDisk",
+    "Shard_C3_VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]",
+    "Shard_C3_SubnetRef": "[concat(variables('Shard_C3_VnetID'), '/subnets/', variables('VNET_JPW_Subnet1Name'))]",
+    "Shard_C3_StorageAccountContainerName": "vhds",
+    "Shard_C3_NicName": "[concat(parameters('Shard_C3_Name'), 'NetworkInterface')]"
+  },
+  "resources": [
+    {
+      "name": "[parameters('Router_AS_SIN_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Router_AS_SIN"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Router_AS_JPW_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Router_AS_JPW"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Config_AS_SIN_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Config_AS_SIN"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Config_AS_JPW_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Config_AS_JPW"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_B_AS_SIN_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_B_AS_SIN"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_B_AS_JPW_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_B_AS_JPW"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_C_AS_SIN_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_C_AS_SIN"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_C_AS_JPW_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_C_AS_JPW"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_A_AS_SIN_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_A_AS_SIN"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[parameters('Shard_A_AS_JPW_Name')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Shard_A_AS_JPW"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 1,
+        "platformFaultDomainCount": 1
+      }
+    },
+    {
+      "name": "[variables('Config_SIN_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "ConfigSIN"
+      },
+      "properties": {
+        "accountType": "[parameters('Config_SA_SIN_Type')]"
+      }
+    },
+    {
+      "name": "[variables('Config_JPW_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "ConfigJPW"
+      },
+      "properties": {
+        "accountType": "[parameters('Config_SA_JPW_Type')]"
+      }
+    },
+    {
+      "name": "[variables('Router_SIN_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "RouterSIN"
+      },
+      "properties": {
+        "accountType": "[parameters('Router_SA_SIN_Type')]"
+      }
+    },
+    {
+      "name": "[variables('Router_JPW_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "RouterJPW"
+      },
+      "properties": {
+        "accountType": "[parameters('Router_SA_JPW_Type')]"
+      }
+    },
+    {
+      "name": "[variables('Shard_SIN_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "ShardSIN"
+      },
+      "properties": {
+        "accountType": "[parameters('Shard_SA_SIN_Type')]"
+      }
+    },
+    {
+      "name": "[variables('Shard_JPW_Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "ShardJPW"
+      },
+      "properties": {
+        "accountType": "[parameters('Shard_SA_JPW_Type')]"
+      }
+    },
+    {
+      "name": "VNET_SIN",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "VNET_SIN"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('VNET_SIN_Prefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('VNET_SIN_Subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VNET_SIN_Subnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('VNET_SIN_Subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VNET_SIN_Subnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VNET_JPW",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "VNET_JPW"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('VNET_JPW_Prefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('VNET_JPW_Subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VNET_JPW_Subnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('VNET_JPW_Subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VNET_JPW_Subnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[variables('Config_1_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+      ],
+      "tags": {
+        "displayName": "Config_1_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Config_1_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Config_1_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_1_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Config_1"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Config_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Config_1_Name')]",
+          "adminUsername": "[parameters('Config_1_AdminUserName')]",
+          "adminPassword": "[parameters('Config_1_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Config_ImagePublisher')]",
+            "offer": "[variables('Config_ImageOffer')]",
+            "sku": "[parameters('Config_1_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Config_1_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Config_1_StorageAccountContainerName'), '/', variables('Config_1_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_1_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('Config_2_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+      ],
+      "tags": {
+        "displayName": "Config_2_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Config_2_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Config_2_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_2_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Config_2"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Config_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Config_2_Name')]",
+          "adminUsername": "[parameters('Config_2_AdminUsername')]",
+          "adminPassword": "[parameters('Config_2_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Config_ImagePublisher')]",
+            "offer": "[variables('Config_ImageOffer')]",
+            "sku": "[parameters('Config_2_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Config_2_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Config_2_StorageAccountContainerName'), '/', variables('Config_2_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_2_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('Config_2_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+      ],
+      "tags": {
+        "displayName": "Config_2_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Config_2_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Config_3_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_JPW_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_3_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Config_3"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Config_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Config_3_Name')]",
+          "adminUsername": "[parameters('Config_3_AdminUsername')]",
+          "adminPassword": "[parameters('Config_3_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Config_ImagePublisher')]",
+            "offer": "[variables('Config_ImageOffer')]",
+            "sku": "[parameters('Config_3_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Config_3_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Config_JPW_Name'), '.blob.core.windows.net/', variables('Config_3_StorageAccountContainerName'), '/', variables('Config_3_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Config_3_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('Router_1_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+      ],
+      "tags": {
+        "displayName": "Router_1_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Router_1_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Router_1_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_SIN_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_1_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Router_1"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Router_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Router_1_Name')]",
+          "adminUsername": "[parameters('Router_1_AdminUsername')]",
+          "adminPassword": "[parameters('Router_1_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Router_ImagePublisher')]",
+            "offer": "[variables('Router_ImageOffer')]",
+            "sku": "[parameters('Router_1_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Router_1_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Router_SIN_Name'), '.blob.core.windows.net/', variables('Router_1_StorageAccountContainerName'), '/', variables('Router_1_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_1_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('Router_2_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+      ],
+      "tags": {
+        "displayName": "Router_2_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Router_2_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Router_2_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Config_SIN_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_2_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Router_2"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Router_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Router_2_Name')]",
+          "adminUsername": "[parameters('Router_2_AdminUsername')]",
+          "adminPassword": "[parameters('Router_2_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Router_ImagePublisher')]",
+            "offer": "[variables('Router_ImageOffer')]",
+            "sku": "[parameters('Router_2_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Router_2_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Config_SIN_Name'), '.blob.core.windows.net/', variables('Router_2_StorageAccountContainerName'), '/', variables('Router_2_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_2_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('Router_3_NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+      ],
+      "tags": {
+        "displayName": "Router_3_Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('Router_3_SubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('Router_3_Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('Router_JPW_Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_3_NicName'))]"
+      ],
+      "tags": {
+        "displayName": "Router_3"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('Router_VM_Size')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('Router_3_Name')]",
+          "adminUsername": "[parameters('Router_3_AdminUsername')]",
+          "adminPassword": "[parameters('Router_3_AdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('Router_ImagePublisher')]",
+            "offer": "[variables('Router_ImageOffer')]",
+            "sku": "[parameters('Router_3_UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "Router_3_OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('Router_JPW_Name'), '.blob.core.windows.net/', variables('Router_3_StorageAccountContainerName'), '/', variables('Router_3_OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Router_3_NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+      {
+          "name": "[variables('Shard_A1_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_A1_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_A1_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_A1_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A1_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_A1"
+          },
+          "properties": {
+              "hardwareProfile": {
+                  "vmSize": "[parameters('Shard_VM_Size')]"
+              },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_A1_Name')]",
+                  "adminUsername": "[parameters('Shard_A1_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_A1_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_A1_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_A1_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_A1_StorageAccountContainerName'), '/', variables('Shard_A1_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A1_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_A2_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_A2_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_A2_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_A2_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A2_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_A2"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_A2_Name')]",
+                  "adminUsername": "[parameters('Shard_A2_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_A2_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_A2_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_A2_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_A2_StorageAccountContainerName'), '/', variables('Shard_A2_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A2_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_A3_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+          ],
+          "tags": {
+              "displayName": "Shard_A3_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_A3_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_A3_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A3_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_A3"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_A3_Name')]",
+                  "adminUsername": "[parameters('Shard_A3_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_A3_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_A3_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_A3_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_A3_StorageAccountContainerName'), '/', variables('Shard_A3_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_A3_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_B1_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_B1_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_B1_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_B1_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B1_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_B1"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_B1_Name')]",
+                  "adminUsername": "[parameters('Shard_B1_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_B1_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_B1_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_B1_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_B1_StorageAccountContainerName'), '/', variables('Shard_B1_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B1_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_B2_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_B2_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_B2_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_B2_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B2_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_B2"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_B2_Name')]",
+                  "adminUsername": "[parameters('Shard_B2_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_B2_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_B2_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_B2_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_B2_StorageAccountContainerName'), '/', variables('Shard_B2_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B2_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_B3_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+          ],
+          "tags": {
+              "displayName": "Shard_B3_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_B3_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_B3_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B3_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_B3"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_B3_Name')]",
+                  "adminUsername": "[parameters('Shard_B3_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_B3_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_B3_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_B3_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_B3_StorageAccountContainerName'), '/', variables('Shard_B3_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_B3_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_C1_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_C1_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_C1_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_C1_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C1_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_C1"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_C1_Name')]",
+                  "adminUsername": "[parameters('Shard_C1_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_C1_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_C1_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_C1_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_C1_StorageAccountContainerName'), '/', variables('Shard_C1_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C1_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_C2_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_SIN')]"
+          ],
+          "tags": {
+              "displayName": "Shard_C2_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_C2_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_C2_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_SIN_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C2_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_C2"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_C2_Name')]",
+                  "adminUsername": "[parameters('Shard_C2_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_C2_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_C2_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_C2_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_SIN_Name'), '.blob.core.windows.net/', variables('Shard_C2_StorageAccountContainerName'), '/', variables('Shard_C2_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C2_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "name": "[variables('Shard_C3_NicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Network/virtualNetworks', 'VNET_JPW')]"
+          ],
+          "tags": {
+              "displayName": "Shard_C3_Nic"
+          },
+          "properties": {
+              "ipConfigurations": [
+                  {
+                      "name": "ipconfig1",
+                      "properties": {
+                          "privateIPAllocationMethod": "Dynamic",
+                          "subnet": {
+                              "id": "[variables('Shard_C3_SubnetRef')]"
+                          }
+                      }
+                  }
+              ]
+          }
+      },
+      {
+          "name": "[parameters('Shard_C3_Name')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('Shard_JPW_Name'))]",
+              "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C3_NicName'))]"
+          ],
+          "tags": {
+              "displayName": "Shard_C3"
+          },
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('Shard_VM_Size')]"
+            },
+              "osProfile": {
+                  "computerName": "[parameters('Shard_C3_Name')]",
+                  "adminUsername": "[parameters('Shard_C3_AdminUsername')]",
+                  "adminPassword": "[parameters('Shard_C3_AdminPassword')]"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "[variables('Shard_ImagePublisher')]",
+                      "offer": "[variables('Shard_ImageOffer')]",
+                      "sku": "[parameters('Shard_C3_UbuntuOSVersion')]",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "name": "Shard_C3_OSDisk",
+                      "vhd": {
+                          "uri": "[concat('https://', variables('Shard_JPW_Name'), '.blob.core.windows.net/', variables('Shard_C3_StorageAccountContainerName'), '/', variables('Shard_C3_OSDiskName'), '.vhd')]"
+                      },
+                      "caching": "ReadWrite",
+                      "createOption": "FromImage"
+                  }
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('Shard_C3_NicName'))]"
+                      }
+                  ]
+              }
+          }
+      }
+  ],
+    "outputs": {
+    }
+}

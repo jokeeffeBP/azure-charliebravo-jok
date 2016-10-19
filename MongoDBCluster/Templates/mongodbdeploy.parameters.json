@@ -1,0 +1,60 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    // Regions
+    "Region_SIN": { "value": "southeastasia" },
+    "Region_JPW": { "value": "japanwest" },
+
+    // Admin user names
+    "Config1AdminUserName": { "value": "james" },
+    "Config2AdminUserName": { "value": "james" },
+    "Config3AdminUserName": { "value": "james" },
+    "Router1AdminUserName": { "value": "james" },
+    "Router2AdminUserName": { "value": "james" },
+    "Router3AdminUserName": { "value": "james" },
+    "ShardA1AdminUserName": { "value": "james" },
+    "ShardA2AdminUserName": { "value": "james" },
+    "ShardA3AdminUserName": { "value": "james" },
+    "ShardB1AdminUserName": { "value": "james" },
+    "ShardB2AdminUserName": { "value": "james" },
+    "ShardB3AdminUserName": { "value": "james" },
+    "ShardC1AdminUserName": { "value": "james" },
+    "ShardC2AdminUserName": { "value": "james" },
+    "ShardC3AdminUserName": { "value": "james" },
+
+    // Availability Set Parameters
+    "Router_AS_SIN_Name": { "value": "Router_AS_SIN" },
+    "Router_AS_JPW_Name": { "value": "Router_AS_JPW" },
+    "Config_AS_SIN_Name": { "value": "Config_AS_SIN" },
+    "Config_AS_JPW_Name": { "value": "Config_AS_JPW" },
+    "Shard_A_AS_SIN_Name": { "value": "Shard_A_AS_SIN" },
+    "Shard_B_AS_SIN_Name": { "value": "Shard_B_AS_SIN" },
+    "Shard_C_AS_SIN_Name": { "value": "Shard_C_AS_SIN" },
+    "Shard_A_AS_JPW_Name": { "value": "Shard_A_AS_JPW" },
+    "Shard_B_AS_JPW_Name": { "value": "Shard_B_AS_JPW" },
+    "Shard_C_AS_JPW_Name": { "value": "Shard_C_AS_JPW" },
+
+    // VM Names and Parameters
+    "Config1Name": { "value": "Config1" },
+    "Config2Name": { "value": "Config2" },
+    "Config3Name": { "value": "Config3" },
+    "Router1Name": { "value": "Router1" },
+    "Router2Name": { "value": "Router2" },
+    "Router3Name": { "value": "Router3" },
+    "ShardA1Name": { "value": "ShardA1" },
+    "ShardA2Name": { "value": "ShardA2" },
+    "ShardA3Name": { "value": "ShardA3" },
+    "ShardB1Name": { "value": "ShardB1" },
+    "ShardB2Name": { "value": "ShardB2" },
+    "ShardB3Name": { "value": "ShardB3" },
+    "ShardC1Name": { "value": "ShardC1" },
+    "ShardC2Name": { "value": "ShardC2" },
+    "ShardC3Name": { "value": "ShardC3" },
+
+    // VM Sizes
+    "ConfigVMSize": { "value": "Standard_D1_v2" },
+    "RouterVMSize": { "value": "Standard_D1_v2" },
+    "ShardVMSize": { "value": "Standard_D1_v2" }
+  }
+  }

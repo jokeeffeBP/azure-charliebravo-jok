@@ -1,0 +1,28 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmssName": {
+      "value": "joksstest4"
+    },
+    "instanceCount": {
+      "value": 1
+    },
+    "adminUsername": {
+      "value": "james"
+    },
+    "vmSize": {
+      "value": "Standard_A0"
+    },
+    "networkSecurityGroups_JOK_NSG_name": {
+      "value": "JOK-NSG"
+    },
+    "_artifactsLocation": {
+      "value": "https://scratch175.blob.core.windows.net"
+
+    },
+    "_artifactsLocationSasToken": {
+      "value": "?sv=2015-04-05&ss=b&srt=sco&sp=rl&se=2016-12-08T00:11:58Z&st=2016-10-05T16:11:58Z&spr=https&sig=cGxbRqTtI8gKW1nINeNDibK1MrF2wPQVuPXvKO7G%2BbA%3D"
+    }
+  }
+}

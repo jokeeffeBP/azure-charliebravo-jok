@@ -4,6 +4,7 @@
   "parameters": {
     "virtualMachines_adminPassword": {
       "value": "P@ssw0rd7Gh^s5"
+        // This is a test comment
     },
     "availabilitySets_name": {
       "value": "JOK-PaaS-2Tier-VC-2-AVS"

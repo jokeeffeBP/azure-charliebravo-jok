@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "JOK-PaaS-2Tier-VC-RG", "JOK-PaaS-2Tier-VC-RG\JOK-PaaS-2Tier-VC-RG.deployproj", "{C73A60ED-B9F8-45F4-A118-79906FC6B9E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JOK-PaaS-2Tier-VC-App", "JOK-PaaS-2Tier-VC-App\JOK-PaaS-2Tier-VC-App.csproj", "{9AE1E212-AFA2-4F91-9387-BDA867A3E1BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JOK-PaaS-2Tier-VC-App.Tests", "JOK-PaaS-2Tier-VC-App.Tests\JOK-PaaS-2Tier-VC-App.Tests.csproj", "{D8FAC80C-4848-4A7F-91AE-89F7C7B152C6}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "VMScaleSet", "VMScaleSet\VMScaleSet.deployproj", "{CB220FCA-50F7-46F8-B6EB-AA2F18DBB66F}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "MongoDBCluster", "MongoDBCluster\MongoDBCluster.deployproj", "{9F3BF123-B8B8-4259-8789-BAFD55C3CC43}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "SimpleVM", "SimpleVM\SimpleVM.deployproj", "{D32337C2-9640-4875-AE75-2BEBCC976CC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{D8FAC80C-4848-4A7F-91AE-89F7C7B152C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8FAC80C-4848-4A7F-91AE-89F7C7B152C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8FAC80C-4848-4A7F-91AE-89F7C7B152C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB220FCA-50F7-46F8-B6EB-AA2F18DBB66F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB220FCA-50F7-46F8-B6EB-AA2F18DBB66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB220FCA-50F7-46F8-B6EB-AA2F18DBB66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB220FCA-50F7-46F8-B6EB-AA2F18DBB66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F3BF123-B8B8-4259-8789-BAFD55C3CC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3BF123-B8B8-4259-8789-BAFD55C3CC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F3BF123-B8B8-4259-8789-BAFD55C3CC43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F3BF123-B8B8-4259-8789-BAFD55C3CC43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32337C2-9640-4875-AE75-2BEBCC976CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32337C2-9640-4875-AE75-2BEBCC976CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32337C2-9640-4875-AE75-2BEBCC976CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32337C2-9640-4875-AE75-2BEBCC976CC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

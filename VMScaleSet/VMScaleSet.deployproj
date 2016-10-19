@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>c73a60ed-b9f8-45f4-a118-79906fc6b9e7</ProjectGuid>
+    <ProjectGuid>cb220fca-50f7-46f8-b6eb-aa2f18dbb66f</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworkIdentifier>Deployment</TargetFrameworkIdentifier>
@@ -25,17 +25,17 @@
   <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
   <!-- vertag<:>end -->
   <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CustomScripts\HarmonyWarDeploy.sh" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
     <Content Include="Scripts\Deploy-AzureResourceGroup.ps1" />
-    <None Include="Scripts\deploy.ps1" />
-    <None Include="Scripts\GithubClone.ps1" />
-    <None Include="Scripts\setup-dev-machine-inst-git.ps1" />
-    <None Include="Scripts\setup-dev-machine-w-git.ps1" />
-    <None Include="Templates\parameters.json" />
-    <None Include="Templates\slots.json" />
-    <None Include="Templates\template.json" />
+    <Content Include="Templates\LinuxVirtualMachineScaleSet.json" />
+    <Content Include="Templates\LinuxVirtualMachineScaleSet.parameters.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
